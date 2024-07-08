@@ -9,6 +9,7 @@ function App() {
     return jsx(
       'div',
       null,
+      jsx('h1',null,"SimpleReact"),
       jsx('p', null, `Count: ${count}`),
       jsx('p', null, text),
       jsx('button', { onclick: () => setCount(count + 1) }, 'Increment'),
