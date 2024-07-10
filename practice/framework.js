@@ -34,14 +34,15 @@ const SimpleReact = (function(){
     effects[effectIndex] = dependencies
     effectIndex++
   }
+  
+  function jsx(tag,props,...children){
+
+  }
 
   function createElement(){
 
   }
 
-  function jsx(){
-
-  }
 
   function render(){
 
