@@ -1,29 +1,46 @@
-function Counter({ start }) {
-  const [count, setCount] = useState(start);
+function TodoItem({ todo, toggleTodo }) {
+  return jsx(
+    'li',
+    { className: `todo-item ${todo.completed ? 'completed' : ''}`, onclick: () => toggleTodo(todo.id) },
+    todo.text
+  );
+}
 
-  useEffect(() => {
-    console.log('Count has changed:', count);
-  }, [count]);
+function TodoApp() {
+  const [todos, setTodos] = useState([]);
+  const [newTodo, setNewTodo] = useState('');
+
+  function addTodo() {
+    setTodos([...todos, { id: Date.now(), text: newTodo, completed: false }]);
+    setNewTodo('');
+  }
+
+  function toggleTodo(id) {
+    setTodos(todos.map(todo => todo.id === id ? { ...todo, completed: !todo.completed } : todo));
+  }
 
   return jsx(
     'div',
-    null,
-    jsx('p', null, `Count: ${count}`),
-    jsx('button', { onclick: () => setCount(count + 1) }, 'Increment')
+    { className: 'todo-app' },
+    jsx('h1', { className: 'header' }, 'SimpleReact Todo App'),
+    jsx('input', {
+      className: 'new-todo',
+      type: 'text',
+      value: newTodo,
+      oninput: (e) => setNewTodo(e.target.value),
+      placeholder: 'Add a new todo'
+    }),
+    jsx('button', { className: 'add-todo', onclick: addTodo }, 'Add Todo'),
+    jsx(
+      'ul',
+      { className: 'todo-list' },
+      todos.map(todo => jsx(TodoItem, { key: todo.id, todo, toggleTodo }))
+    )
   );
 }
 
 function App() {
-  const [text, setText] = useState('Hello');
-
-  return jsx(
-    'div',
-    null,
-    jsx('h1', null, 'SimpleReact'),
-    jsx(Counter, { start: 0 }),
-    jsx('p', null, text),
-    jsx('button', { onclick: () => setText('Hello, SimpleReact!') }, 'Update Text')
-  );
+  return jsx('div', null, jsx(TodoApp, null));
 }
 
 // Initial render

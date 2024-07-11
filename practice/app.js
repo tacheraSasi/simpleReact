@@ -21,8 +21,8 @@ function App() {
     null,
     jsx('h1', null, 'SimpleReact'),
     jsx(Counter, { start: 0 }),
+    jsx('button', { onclick: () => setText('Hello, SimpleReact!') }, 'Update Text'),
     jsx('p', null, text),
-    jsx('button', { onclick: () => setText('Hello, SimpleReact!') }, 'Update Text')
   );
 }
 

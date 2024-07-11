@@ -52,6 +52,10 @@ const SimpleReact = (function() {
     for (let [name, value] of Object.entries(node.props)) {
       if (name.startsWith('on') && typeof value === 'function') {
         element.addEventListener(name.slice(2).toLowerCase(), value);
+      } else if (name === 'className') {
+        element.className = value;
+      } else if (name === 'id') {
+        element.id = value;
       } else {
         element.setAttribute(name, value);
       }
